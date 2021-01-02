@@ -1,4 +1,5 @@
 {% load static %}
+{% load movie_tags %}
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -51,21 +52,21 @@
 					<li><a>Language</a>
 						<ul>
 							<li><a href="{% url 'movie_language' 'english' %}">English</a></li>
-							<li><a href="{% url 'movie_language' 'german' %}">German</a></li>
+							<li><a href="{% url 'movie_language' 'japanese' %}">Japanese</a></li>
 							<li><a href="{% url 'movie_language' 'french' %}">French</a></li>
 						</ul>
 					</li>
 					<li><a href="{% url 'most_watched' %}">Most Watched</a></li>
 					<li class="mobsearch">
-						<form class="mobform">
-							<input type="text" name="s" class="mobsearchfield" placeholder="Search...">
+						<form class="mobform" action="{% url 'movie_search' %}" method="get">
+							<input type="text" name="q" class="mobsearchfield" placeholder="Search...">
 							<input type="submit" value="" class="mobsearchsubmit">
 						</form>
 					</li>
 				</ul>
 			</nav>
-			<form class="search">
-				<input type="text" name="s" class="searchfield" placeholder="Search...">
+			<form class="search" action="{% url 'movie_search' %}" method="get">
+				<input type="text" name="q" class="searchfield" placeholder="Search...">
 				<input type="submit" value="" class="searchsubmit">
 			</form>
 

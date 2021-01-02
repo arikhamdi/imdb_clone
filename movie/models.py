@@ -6,7 +6,7 @@ from imdb.settings import LANGUAGE_CODE
 
 LANGUAGE_CHOICES = (
     ('english', 'ENGLISH'),
-    ('german', 'GERMAN'),
+    ('japanese', 'JAPANESE'),
     ('french', 'FRENCH'),
 )
 

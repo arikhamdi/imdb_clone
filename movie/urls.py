@@ -7,7 +7,8 @@ from .views import (
     TopRated,
     ActorDetail,
     MovieCategory,
-    MovieLanguage)
+    MovieLanguage,
+    MovieSearch)
 
 urlpatterns = [
     path('', MovieList.as_view(), name='movie_list'),
@@ -15,6 +16,8 @@ urlpatterns = [
     path('most_watched', MostWatched.as_view(), name='most_watched'),
     path('recently_added', RecentlyAdded.as_view(), name='recently_added'),
     path('top_rated', TopRated.as_view(), name='top_rated'),
+
+    path('search/', MovieSearch.as_view(), name='movie_search'),
 
     path('actor/<slug:slug>', ActorDetail.as_view(), name='actor_detail'),
 

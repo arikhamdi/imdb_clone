@@ -47,6 +47,16 @@ class MovieList(ListView):
     model = Movie
     template_name = 'movie/index.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(MovieList, self).get_context_data(**kwargs)
+        context['recently_added'] = Movie.objects.all().order_by(
+            '-created')[:15]
+        context['most_watched'] = Movie.objects.all().order_by(
+            '-views_count')[:15]
+        context['top_rated'] = Movie.objects.all().order_by(
+            '-rating')[:15]
+        return context
+
 
 class MovieDetail(DetailView):
     model = Movie
@@ -58,14 +68,27 @@ class MovieDetail(DetailView):
         object.save()
         return object
 
+
+class MovieSearch(ListView):
+    model = Movie
+    paginate_by = 8
+    template_name = 'movie/movie_list.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        self.result = Movie.objects.filter(title__icontains=query)
+        return self.result
+
     def get_context_data(self, **kwargs):
-        context = super(MovieDetail, self).get_context_data(**kwargs)
+        context = super(MovieSearch, self).get_context_data(**kwargs)
+        context['list_title'] = f'Search Result : {self.result.count()}'
         return context
 
 
 class MostWatched(ListView):
     model = Movie
     paginate_by = 8
+    ordering = ['-views_count']
     template_name = 'movie/movie_list.html'
 
     def get_context_data(self, **kwargs):
@@ -77,6 +100,7 @@ class MostWatched(ListView):
 class RecentlyAdded(ListView):
     model = Movie
     paginate_by = 8
+    ordering = ['-created']
     template_name = 'movie/movie_list.html'
 
     def get_context_data(self, **kwargs):
@@ -88,6 +112,7 @@ class RecentlyAdded(ListView):
 class TopRated(ListView):
     model = Movie
     paginate_by = 8
+    ordering = ['-rating']
     template_name = 'movie/movie_list.html'
 
     def get_context_data(self, **kwargs):
