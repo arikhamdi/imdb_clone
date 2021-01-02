@@ -1,47 +1,10 @@
 {% extends 'base.html'%}
 {% load static %}
 
+
 {%block content%}
 <!-- Swiper -->
-<div class="homeslider">
-    <div class="swiper-container">
-
-        <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <img src="{% static 'images/slider/poster2.jpg' %}">
-                <div class="caption">
-                    <div class="captioninside">
-                        <h3>Movie Title</h3>
-                        <p>Lorem ipsum dolor siamet</p>
-                        <a href="single.html" class="playbutton">Play</a>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <img src="{% static 'images/slider/battleangelalita.jpg' %}">
-                <div class="caption">
-                    <div class="captioninside">
-                        <h3>Movie Title 2</h3>
-                        <p>Lorem ipsum dolor siamet</p>
-                        <a href="single.html" class="playbutton">Play</a>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <img src="{% static 'images/slider/poster1.jpg' %}">
-                <div class="caption">
-                    <div class="captioninside">
-                        <h3>Movie Title 3</h3>
-                        <p>Lorem ipsum dolor siamet</p>
-                        <a href="single.html" class="playbutton">Play</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Add Pagination -->
-        <div class="swiper-pagination"></div>
-    </div>
-</div>
+{% include "movie/slider.html" %}
 
 <main class="content">
     <section class="panel">

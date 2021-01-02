@@ -63,3 +63,13 @@ class Movie(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Banner(models.Model):
+    banner = models.ImageField(upload_to='slder')
+    created = models.DateTimeField(auto_now_add=True)
+    movie = models.ForeignKey(
+        Movie, related_name='movie_banner', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.movie.title

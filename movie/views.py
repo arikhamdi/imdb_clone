@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 from django.views.generic import ListView, DetailView
 from django.views.generic.dates import YearArchiveView
-from .models import Movie, Actor, Category
+from .models import Movie, Actor, Category, Banner
 
 
 class ActorDetail(DetailView):
@@ -56,6 +56,7 @@ class MovieList(ListView):
             '-views_count')[:15]
         context['top_rated'] = Movie.objects.all().order_by(
             '-rating')[:15]
+        context['slides'] = Banner.objects.all().order_by('-created')[:5]
         return context
 
 
