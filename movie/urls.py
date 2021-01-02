@@ -1,10 +1,23 @@
 from django.urls import path
-from .views import MovieList, MovieDetail, MostWatched
+from .views import (
+    MovieList,
+    MovieDetail,
+    MostWatched,
+    RecentlyAdded,
+    TopRated,
+    ActorDetail,
+    MovieCategory,
+    MovieLanguage)
 
 urlpatterns = [
     path('', MovieList.as_view(), name='movie_list'),
-    path('<int:pk>', MovieDetail.as_view(), name='movie_detail'),
+    path('movie/<slug:slug>', MovieDetail.as_view(), name='movie_detail'),
     path('most_watched', MostWatched.as_view(), name='most_watched'),
-    path('recently_added', MostWatched.as_view(), name='recently_added'),
-    path('top_rated', MostWatched.as_view(), name='top_rated'),
+    path('recently_added', RecentlyAdded.as_view(), name='recently_added'),
+    path('top_rated', TopRated.as_view(), name='top_rated'),
+
+    path('actor/<slug:slug>', ActorDetail.as_view(), name='actor_detail'),
+
+    path('category/<str:name>', MovieCategory.as_view(), name='movie_category'),
+    path('language/<str:lang>', MovieLanguage.as_view(), name='movie_language'),
 ]

@@ -4,52 +4,37 @@
 <main class="content">
     <div class="single">
 
-        <section class="trailer">
-            <h3>Trailer</h3>
-            <div class="trailer_frame">
-                <iframe width="560" height="315" src="{{ movie.trailer }}" frameborder="0" allowfullscreen></iframe>
-            </div>
-        </section>
-
         <section class="movie">
-            <img src="{{ movie.image.url }}">
+            {% if object.image.url != '' %}
+            <img src="{{ object.image.url }}">
+            {% endif %}
             <ul>
-                <li>{{ movie.title }}</li>
-                <li>{{ movie.description }}</li>
-                <li>
-                    {% for category in movie.category.all %}
-                    <a href="{% url 'movie_category' category.name %}">{{ category }}</a>
-                    {% if not forloop.last %}
-                    ,
-                    {% endif %}
-                    {% endfor %}
+                <li class="row">
+                    <div class='col-sm-3'>Name:</div>
+                    <div class='col-sm-7'>{{ object.name }}</div>
+                </li>
+                <li class="row">
+                    <div class='col-sm-4'>Bith name:</div>
+                    <div class='col-sm-8'>{{ object.birth_name }}</div>
+                </li>
+                <li class="row"> </li>
+                <li class="row">
+                    <div class='col-sm-4'>Born Date:</div>
+                    <div class='col-sm-8'>{{ object.born_date }}</div>
+                </li>
+                <li class="row">
+                    <div class='col-sm-4'>Born place:</div>
+                    <div class='col-sm-8'>{{ object.born_place }}</div>
+                </li>
+                <li class="row">
+                    <div class='col-sm-4'>Height:</div>
+                    <div class='col-sm-8'>{{ object.height }} cm</div>
+                </li>
+                <li class="row">
+                    <div class='col-sm-4'>Bio:</div>
+                    <div class='col-sm-8'>{{ object.bio }}</div>
                 </li>
 
-                <li>
-                    {% for actor in movie.cast.all %}
-                    <a href="{% url 'actor_detail' actor.slug %}">{{ actor }}</a>
-                    {% if not forloop.last %}
-                    ,
-                    {% endif %}
-                    {% endfor %}
-                </li>
-
-                <li>{{ movie.views_count }} Views</li>
-            </ul>
-        </section>
-        <section class="links">
-            <h3>Links</h3>
-            <ul class="dlinks">
-                <li><a>Download</a></li>
-                <li><a href="#">Link1</a></li>
-                <li><a href="#">Link2</a></li>
-                <li><a href="#">Link3</a></li>
-            </ul>
-            <ul class="wlinks">
-                <li><a>Watch</a></li>
-                <li><a href="#">Link1</a></li>
-                <li><a href="#">Link2</a></li>
-                <li><a href="#">Link3</a></li>
             </ul>
         </section>
 

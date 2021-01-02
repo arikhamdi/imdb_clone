@@ -50,11 +50,12 @@
 					</li>
 					<li><a>Language</a>
 						<ul>
-							<li><a href="language.html">English</a></li>
-							<li><a href="language.html">German</a></li>
+							<li><a href="{% url 'movie_language' 'english' %}">English</a></li>
+							<li><a href="{% url 'movie_language' 'german' %}">German</a></li>
+							<li><a href="{% url 'movie_language' 'french' %}">French</a></li>
 						</ul>
 					</li>
-					<li><a href="mostwatched.html">Most Watched</a></li>
+					<li><a href="{% url 'most_watched' %}">Most Watched</a></li>
 					<li class="mobsearch">
 						<form class="mobform">
 							<input type="text" name="s" class="mobsearchfield" placeholder="Search...">

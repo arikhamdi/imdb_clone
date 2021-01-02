@@ -1,13 +1,8 @@
 from django.db import models
+from autoslug import AutoSlugField
 
 from imdb.settings import LANGUAGE_CODE
 
-CATEGORY_CHOICES = (
-    ('action', 'ACTION'),
-    ('drama', 'DRAMA'),
-    ('comedy', 'COMEDY'),
-    ('romance', 'ROMANCE'),
-)
 
 LANGUAGE_CHOICES = (
     ('english', 'ENGLISH'),
@@ -23,16 +18,40 @@ STATUS_CHOICES = (
 
 class Actor(models.Model):
     name = models.CharField(max_length=100)
+    slug = AutoSlugField(populate_from='name',
+                         max_length=100,
+                         unique_for_date='created')
+    created = models.DateTimeField(auto_now_add=True)
+    birth_name = models.CharField(max_length=100)
+    born_date = models.DateField()
+    born_place = models.CharField(max_length=100)
+    height = models.IntegerField(default=0)
+    bio = models.TextField()
+    image = models.ImageField(upload_to='actors')
+
+    def __str__(self):
+        return self.name
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=50)
+    slug = AutoSlugField(populate_from='name',
+                         max_length=50,
+                         unique_for_date='created')
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
 
 
 class Movie(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=250)
+    slug = AutoSlugField(populate_from='title',
+                         max_length=250,
+                         unique_for_date='created')
     description = models.TextField()
     image = models.ImageField(upload_to='movies')
-    category = models.CharField(choices=CATEGORY_CHOICES, max_length=10)
+    category = models.ManyToManyField(Category)
     language = models.CharField(choices=LANGUAGE_CHOICES, max_length=10)
     cast = models.ManyToManyField(Actor)
     status = models.CharField(choices=STATUS_CHOICES, max_length=10)
