@@ -15,6 +15,7 @@
             <img src="{{ movie.image.url }}">
             <ul>
                 <li>{{ movie.title }}</li>
+                <li>{{ movie.release_date|date }}</li>
                 <li>{{ movie.description }}</li>
                 <li>
                     {% for category in movie.category.all %}
@@ -33,6 +34,7 @@
                     {% endif %}
                     {% endfor %}
                 </li>
+
 
                 <li>{{ movie.views_count }} Views</li>
             </ul>

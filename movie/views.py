@@ -2,6 +2,7 @@ from django.contrib.admin.filters import FieldListFilter
 from django.shortcuts import render
 
 from django.views.generic import ListView, DetailView
+from django.views.generic.dates import YearArchiveView
 from .models import Movie, Actor, Category
 
 
@@ -83,6 +84,14 @@ class MovieSearch(ListView):
         context = super(MovieSearch, self).get_context_data(**kwargs)
         context['list_title'] = f'Search Result : {self.result.count()}'
         return context
+
+
+class MovieYearList(YearArchiveView):
+    queryset = Movie.objects.all()
+    date_field = "release_date"
+    make_object_list = True
+    allow_future = True
+    template_name = 'movie/movie_list.html'
 
 
 class MostWatched(ListView):

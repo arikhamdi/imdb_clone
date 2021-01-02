@@ -8,11 +8,13 @@ from .views import (
     ActorDetail,
     MovieCategory,
     MovieLanguage,
-    MovieSearch)
+    MovieSearch,
+    MovieYearList)
 
 urlpatterns = [
     path('', MovieList.as_view(), name='movie_list'),
     path('movie/<slug:slug>', MovieDetail.as_view(), name='movie_detail'),
+    path('year/<int:year>', MovieYearList.as_view(), name='movie_year'),
     path('most_watched', MostWatched.as_view(), name='most_watched'),
     path('recently_added', RecentlyAdded.as_view(), name='recently_added'),
     path('top_rated', TopRated.as_view(), name='top_rated'),
