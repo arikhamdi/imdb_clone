@@ -35,18 +35,20 @@
 					<li><a href="{% url 'movie_list' %}">Home</a></li>
 					<li><a>Genres</a>
 						<ul>
-							<li><a href="genre.html">Action</a></li>
-							<li><a href="genre.html">Comedy</a></li>
-							<li><a href="genre.html">Drama</a></li>
-							<li><a href="genre.html">Romance</a></li>
+							{% for category in categories %}
+
+							<li><a href="{% url 'movie_category' category %}">{{ category }}</a></li>
+							{% endfor %}
+
 						</ul>
 					</li>
 					<li><a>Year</a>
 						<ul>
-							<li><a href="year.html">2017</a></li>
-							<li><a href="year.html">2016</a></li>
-							<li><a href="year.html">2015</a></li>
-							<li><a href="year.html">2014</a></li>
+
+							{% for year in years %}
+							<li><a href="{% url 'movie_year' year %}">{{ year }}</a>
+							</li>
+							{% endfor %}
 						</ul>
 					</li>
 					<li><a>Language</a>
@@ -72,6 +74,7 @@
 
 			<div class="toggle"><img src="{% static 'img/menu.svg' %}"></div>
 		</header>
+
 		{%block content%}
 		{%endblock%}
 
