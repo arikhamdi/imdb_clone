@@ -9,6 +9,17 @@ from .models import Movie, Actor, Category, Banner
 class ActorDetail(DetailView):
     model = Actor
 
+    def get_context_data(self, **kwargs):
+        context = super(ActorDetail, self).get_context_data(**kwargs)
+        list_of_movies = Movie.objects.filter(
+            cast=self.get_object()).order_by('-views_count')
+        related_movies = []
+        for movie in list_of_movies:
+            if movie not in related_movies:
+                related_movies.append(movie)
+        context['related_movies'] = related_movies[:6]
+        return context
+
 
 class CategoryList(ListView):
     model = Category
@@ -65,10 +76,21 @@ class MovieDetail(DetailView):
     template_name = 'movie/movie_detail.html'
 
     def get_object(self):
-        object = super(MovieDetail, self).get_object()
-        object.views_count += 1
-        object.save()
-        return object
+        self.object = super(MovieDetail, self).get_object()
+        self.object.views_count += 1
+        self.object.save()
+        return self.object
+
+    def get_context_data(self, **kwargs):
+        context = super(MovieDetail, self).get_context_data(**kwargs)
+        list_of_movies = Movie.objects.filter(
+            category__in=self.get_object().category.all()).exclude(title=self.get_object().title).order_by('-views_count')
+        related_movies = []
+        for movie in list_of_movies:
+            if movie not in related_movies:
+                related_movies.append(movie)
+        context['related_movies'] = related_movies[:6]
+        return context
 
 
 class MovieSearch(ListView):
@@ -93,6 +115,12 @@ class MovieYearList(YearArchiveView):
     make_object_list = True
     allow_future = True
     template_name = 'movie/movie_list.html'
+
+    def get_context_data(self, **kwargs):
+
+        context = super(MovieYearList, self).get_context_data(**kwargs)
+        context['list_title'] = self.kwargs['year']
+        return context
 
 
 class MostWatched(ListView):
