@@ -3,5 +3,6 @@ __pycache__
 *.pyc
 media/
 .env
+local_settings.py
 staticfiles/
 mysite.log
