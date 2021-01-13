@@ -31,10 +31,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'movie',
-
     'cloudinary_storage',
     'cloudinary',
+
+    'movie',
 ]
 
 MIDDLEWARE = [
@@ -117,6 +117,8 @@ STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
 MEDIA_URL = '/media/imdb/'
 MEDIA_ROOT = BASE_DIR / 'media/imdb'
 
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 try:
     from .local_settings import *
